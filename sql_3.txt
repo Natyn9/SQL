@@ -1,0 +1,38 @@
+SELECT * FROM employees where length (first_name)>10;
+
+SELECT * FROM employees where Mod (salary, 1000)=0;
+
+SELECT * FROM employees;
+
+SELECT phone_number, SUBSTR(phone_number, 1,3) From employees
+where phone_number like '___.___.____';
+
+select * from employees where first_name like '%m' and length (first_name)>5;
+
+select NEXT_DAY(SYSDATE, 5) from dual;
+SELECT sysdate FROM dual;
+
+select * from employees where ADD_MONTHS (hire_date, 150)< SYSDATE order by hire_date;
+select * from employees WHERE MONTHS_BETWEEN (sysdate, hire_date)>150;
+select MONTHS_BETWEEN (start_date, end_date)from job_history;
+
+SELECT  phone_number, replace (phone_number, '.', '-') FROM employees;
+
+select Upper (first_name), lower (email), INITCAP (job_ID) from employees;
+
+select CONCAT (first_name, salary) from employees;
+
+SELECT * FROM job_history;
+
+SELECT hire_date, Round (hire_date,'MM'), trunc (hire_date, 'YYYY') FROM employees;
+
+select RPAD (first_name, 10, '$'), LPAD (last_name, 15, '!') from employees;
+
+select first_name, instr (first_name,'a',1, 2) from employees;
+
+select  '!!!HELLO!! MY FRIEND!!!!!!!!', trim (both '!' from '!!!HELLO!! MY FRIEND!!!!!!!!') from dual;
+
+select salary, salary*3.1415, round (salary*3.1415), trunc (salary*3.1415, -3)/1000 from employees;
+
+select hire_date, add_months (hire_date, 6), last_day (hire_date) from employees;
+
