@@ -1,0 +1,56 @@
+CREATE TABLE locations2 AS (SELECT * FROM locations WHERE 1=2);
+select * from regions;
+select * from locations2;
+select * from countries;
+
+insert into locations2 (location_id, street_address, city, country_id)
+(select location_id, street_address, city, country_id from locations
+where country_id = 'IT');
+commit;
+
+insert into locations2 
+Values (1200, '1718 De Golle', '12345', Initcap ('paris'), 'some provise 1', upper ('fr'));
+insert into locations2 
+Values (1300, '2050 De Golle', '54321', Initcap ('lion'), 'some provise 2', upper ('fr'));
+
+delete from locations2 where location_id=1300;
+
+insert into locations2
+(select * from locations
+where length (state_province)>9);
+
+CREATE TABLE locations4europe AS (SELECT * FROM locations WHERE 1=2);
+
+insert all
+WHEN 1=1 then
+into locations2 
+values (location_id, street_address, postal_code, city, state_province, country_id)
+when country_id in 
+(select country_id from countries where region_id=1) then
+into locations4europe (location_id, street_address, city, country_id)
+values (location_id, street_address, city, country_id)
+select * from locations;
+
+commit;
+
+update locations2 set postal_code='55555' where postal_code is null;
+ROLLBACK;
+
+update locations2 set postal_code= (select postal_code from locations where location_id=2600)  
+where postal_code is null;
+
+commit;
+
+delete from locations2 where country_id= 'IT';
+savepoint s1;
+
+update locations2 set street_address = 'Sezam st. 18'
+where location_id>2500; 
+
+savepoint s2;
+
+delete from locations2 where street_address = 'Sezam st. 18';
+
+rollback to SAVEPOINT s1;
+
+commit;
