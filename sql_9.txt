@@ -1,0 +1,41 @@
+select * from employees;
+select * from friends;
+
+create table friends as (select employee_id id, first_name name, last_name surname from employees
+where commission_pct is not null);
+ 
+alter table friends ADD (email VARCHAR2(25));
+alter table friends modify (email VARCHAR2(25) DEFAULT 'no email');
+
+insert into friends (id, name, surname) values (1000, 'Nataly', 'Ruzaeva');
+
+alter table friends rename column id to friends_id; 
+drop table friends;
+
+create table friends (
+id integer,
+name VARCHAR2 (15), 
+surname VARCHAR2 (20),
+email VARCHAR2 (20), 
+salary integer DEFAULT '1000', 
+city VARCHAR2 (15), 
+birthday date DEFAULT Sysdate
+);
+
+insert into friends values (1000, 'Nataly', 'Ruzaeva', '123@yeye.ru', 15000, 'Moscow', '01-Sep-1990');
+
+insert into friends (id, name, surname, email, city) 
+values (1500, 'Semen', 'Ruzaev', '666@yeye.ru', 'Moscow');
+
+commit;
+
+alter table friends drop COLUMN salary;
+alter table friends set unused column email;
+alter table friends set unused column birthday;
+alter table friends drop unused COLUMNS;
+alter table friends read only;
+
+insert into friends (id, name, surname, city) values (1000, 'Nataly', 'Ruzaeva', 'Krasnogorsk');
+
+TRUNCATE TABLE friends;
+drop table friends;
