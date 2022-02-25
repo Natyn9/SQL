@@ -1,0 +1,29 @@
+create table address (
+id integer CONSTRAINT  ad_id_un Unique,
+country varchar2(15),
+city varchar2 (20)
+);
+
+select *FROM address;
+
+create table friends (
+id integer,
+name varchar2(15),
+email varchar2 (20),
+address_id integer CONSTRAINT fk REFERENCES address(id) on delete set null,
+birthday date,
+CONSTRAINT ch CHECK (length(name)>3)
+);
+
+create Unique index i1 on friends(id);
+
+alter table friends add CONSTRAINT fr_id_pk PRIMARY key (id);
+
+create index fr_email_in on friends(email);
+
+alter table friends modify (email CONSTRAINT fr_email_nn not null);
+
+drop table friends;
+
+drop table address;
+
